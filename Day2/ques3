@@ -1,0 +1,44 @@
+class Solution {
+public:
+void s(vector<int>& nums1, vector<int>& nums2,int left,int right)
+{
+    if(nums1[left]>nums2[right])
+    {
+        swap(nums1[left],nums2[right]);
+    }
+}
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+       int len=(n+m);
+       int gap=(len/2)+(len%2);
+       while(gap>0)
+       {
+           int left=0;
+           int right=left+gap;
+           while(right<len)
+           {
+               //left in arr1 and right in array2
+               if(left<m && right>=m)
+               {
+                  s(nums1,nums2,left,right-m);
+               }
+               else if(left>=m)//both in array 2
+               {
+                  s(nums2,nums2,left-m,right-m);
+               }
+               else if(right<m)
+               {
+                   s(nums1,nums1,left,right);
+               }//both in array1
+               left++;
+               right++;
+           }
+           if(gap==1)
+           break;
+           gap=(gap/2)+(gap%2);
+       }
+       for(int i=m,j=0;i<nums1.size(),j<n;i++,j++)
+       {
+           swap(nums1[i],nums2[j]);
+       }
+    }
+};
