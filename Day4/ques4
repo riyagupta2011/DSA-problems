@@ -1,0 +1,28 @@
+class Solution{
+    public:
+    int maxLen(vector<int>&a, int n)
+    {   
+        vector<int> prefix(n);
+        prefix[0]=a[0];
+        for(int i=1;i<n;i++)
+        {
+            prefix[i]=prefix[i-1]+a[i];
+        }
+        map<int,int> m;
+        for(int i=0;i<prefix.size();i++)
+        {
+            m[prefix[i]]=i;
+        }
+        int maxi=0;
+        for(int i=0;i<prefix.size();i++)
+        {
+            int l=0;
+            if(prefix[i]==0)
+            l=i+1;
+            else
+            l=abs(i-m[prefix[i]]);
+            maxi=max(maxi,l);
+        }
+       return maxi; 
+    }
+};
