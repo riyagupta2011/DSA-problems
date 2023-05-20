@@ -1,0 +1,14 @@
+int Solution::solve(vector<int> &a, int b) {
+    int xr=0;
+    map<int,int> m;
+    m[xr]++;
+    int cnt=0;
+    for(int i=0;i<a.size();i++)
+    {
+        xr=xr^a[i];
+        int x=xr^b;
+        cnt+=m[x];
+        m[xr]++;
+    }
+    return cnt;
+}
