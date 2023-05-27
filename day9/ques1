@@ -1,0 +1,23 @@
+class Solution
+{
+public:
+    void reccursion(vector<int> arr,int index,int N,vector<int> &ans,int sum)
+    {
+        if(index>=N)
+        {
+            ans.push_back(sum);
+            return;
+        }
+       reccursion(arr,index+1,N,ans,sum+arr[index]);
+       reccursion(arr,index+1,N,ans,sum);
+        
+    }
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        // Write Your Code here
+        vector<int> ans;
+        reccursion(arr,0,N,ans,0);
+        return ans;
+        
+    }
+};
