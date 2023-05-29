@@ -1,0 +1,66 @@
+class Solution {
+public:
+    bool isSafe(int row,int col,vector<string> &m,int n)
+    {
+        int duprow=row;
+        int dupcol=col;
+        while(dupcol>=0)
+        {
+             
+            if(m[row][dupcol]=='Q')
+            return false;
+            dupcol--;
+           
+        }
+        dupcol=col;
+        while(duprow>=0 && dupcol>=0)
+        {
+            
+            if(m[duprow][dupcol]=='Q')
+            return false;
+            duprow--;
+            dupcol--;
+        }
+        duprow=row;
+        dupcol=col;
+        while(duprow<n && dupcol>=0)
+        {
+            
+            if(m[duprow][dupcol]=='Q')
+            return false;
+            duprow++;
+            dupcol--;
+        }
+        return true;
+
+    }
+    void f(int n,vector<vector<string>> &ans,vector<string> &m,int col)
+    {
+        if(col==n)
+        {
+            ans.push_back(m);
+            return;
+        }
+        for(int row=0;row<n;row++)
+        {
+            if(isSafe(row,col,m,n))
+            {
+                m[row][col]='Q';
+                f(n,ans,m,col+1);
+                 m[row][col]='.';
+            }
+        }
+    }
+    vector<vector<string>> solveNQueens(int n) {
+    vector<vector<string>> ans;
+    string s="";
+    for(int i=0;i<n;i++)
+    {
+        s=s+".";
+    }
+    vector<string> m(n,s);
+    f(n,ans,m,0);
+    return ans;
+
+    }
+};

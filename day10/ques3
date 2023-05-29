@@ -1,0 +1,50 @@
+class Solution {
+public:
+    bool isValid(vector<vector<char>>& board,char c,int i,int j)
+    {
+        for(int x=0;x<9;x++)
+        {
+            if(board[i][x]==c)
+            return false;
+            if(board[x][j]==c)
+            return false;
+            if(board[3*(i/3)+x/3][3*(j/3)+x%3]==c)
+            return false;
+        }
+        return true;
+    }
+    bool solve(vector<vector<char>>& board)
+    {
+        cout<<"yes";
+       int n=board.size();
+        int m=board[0].size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                char a=board[i][j];
+                if(a=='.')
+                {
+                    for(char k='1';k<='9';k++)
+                    {
+                        if(isValid(board,k,i,j))
+                        {
+                            board[i][j]=k;
+                            if(solve(board)==true)
+                            return true;
+                            else
+                            board[i][j]='.';
+
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    void solveSudoku(vector<vector<char>>& board) {
+        solve(board);
+    }
+};
