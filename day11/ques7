@@ -1,0 +1,53 @@
+bool isPossible(long long  mid,vector<int> &A, int B)
+{
+    long long  sum=0;
+    int cnt=1;
+    for(int i=0;i<A.size();i++)
+    {
+        if(sum+A[i]<=mid)
+        {
+            sum=sum+A[i];
+           
+        }
+        else
+        {
+            cnt++;
+            if(cnt>B || A[i]>mid)
+            return false;
+            sum=A[i];
+            
+            
+            
+            
+        }
+        
+        
+    }
+ 
+    return true;
+
+}
+int Solution::books(vector<int> &A, int B) {
+    if(A.size()<B)
+    return -1;
+    long long maxi=0;
+  for(int i=0;i<A.size();i++)
+  {
+      maxi=maxi+A[i];
+  }
+    long long low=0;
+    long long high=maxi;
+    long long ans=-1;
+    while(low<=high)
+    {
+        long long  mid=(low+high)>>1;
+        if(isPossible(mid,A,B))
+        {
+            ans=mid;
+            high=mid-1;
+        }
+        else
+        low=mid+1;
+    }
+    return ans;
+}
