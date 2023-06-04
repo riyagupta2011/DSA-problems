@@ -1,0 +1,61 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        int sign=1;
+        long long nums=0;
+        int set=0;
+        string d="";
+        for(int i=0;i<s.length();i++)
+        {
+            if(s[i]==' ')
+            {
+                if(set==1)
+                break;
+                else
+                continue;
+            }
+            else if(s[i]=='+')
+            {
+                if(set==0)
+                {
+                    sign=1;
+                    set=1;
+                }
+                else
+                break;
+            }
+            else if(s[i]=='-')
+            {
+                if(set==0)
+                {
+                   sign=0;
+                   set=1;
+
+                }
+                else
+                break;
+            }
+            else if(s[i]>='a' && s[i]<='z')
+                break;
+            else if(s[i]>='A' && s[i]<='Z')
+                break;
+           else if(((s[i]-'0')>=0) && ((s[i]-'0')<=9))
+            {
+                  d.push_back(s[i]);
+                set=1;
+            }
+            else
+            break;
+        }
+        long long low=INT_MIN;
+        long long high=INT_MAX;
+        int l=0;
+        for(int i=0;i<d.length();i++)
+        {
+            char a=d[i];
+            int x=a-'0';
+            nums=clamp((sign==0)?nums*10-x:nums*10+x,low,high);
+        }
+        return nums;
+    }
+};
