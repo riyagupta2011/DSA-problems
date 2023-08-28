@@ -1,0 +1,30 @@
+class Solution {
+public:
+   bool f(string s,set<string>& st,int i,vector<int> &dp)
+   {
+       if(i==s.length())
+       return true;
+       string temp;
+       if(dp[i]!=-1)
+       return dp[i];
+       for(int j=i;j<s.length();j++)
+       {
+           temp+=s[j];
+           if(st.find(temp)!=st.end())
+           {
+               if(f(s,st,j+1,dp))
+               return dp[i]= true;
+           }
+       }
+       return dp[i]= false;
+   }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        set<string> st;
+        int l=s.length();
+        vector<bool> dp(l,false);
+        for(auto it:wordDict)
+        st.insert(it);
+
+        bool ans=f(s,st,0,dp);
+        return ans;
+    }s
